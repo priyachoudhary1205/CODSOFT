@@ -1,0 +1,155 @@
+<!DOCTYPE html> 
+<html> 
+
+<head> 
+    <title>JavaScript Calculator</title> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.js"
+        integrity="sha512-BbVEDjbqdN3Eow8+empLMrJlxXRj5nEitiCAK5A1pUr66+jLVejo3PmjIaucRnjlB0P9R3rBUs3g5jXc8ti+fQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.min.js"
+        integrity="sha512-iphNRh6dPbeuPGIrQbCdbBF/qcqadKWLa35YPVfMZMHBSI6PLJh1om2xCTWhpVpmUyb4IvVS9iYnnYMkleVXLA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
+    
+    <!-- For styling -->
+    <style> 
+        body {
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        table { 
+            border: 1px solid black; 
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        } 
+
+        input[type="button"] { 
+            width: 80px; 
+            height: 80px;
+            padding: 20px; 
+            background-color: #0078D7; 
+            color: white; 
+            font-size: 24px; 
+            font-weight: bold; 
+            border: none; 
+            border-radius: 20px; 
+            margin: 5px;
+        } 
+
+        input[type="text"] { 
+            padding: 20px; 
+            font-size: 24px; 
+            font-weight: bold; 
+            border: none; 
+            border-bottom: 2px solid #0078D7; 
+            text-align: right;
+            color: white;
+            background-color: #333;
+            width: 346px;
+            margin: 5px;
+            border-radius: 10px;
+        } 
+    </style> 
+</head> 
+    
+<body> 
+    
+    <!-- Use Table to Create Calculator Structure Design -->
+    <table id="calcu"> 
+        <tr> 
+            <td colspan="3"><input type="text" id="result"></td> 
+            <td><input type="button" value="c" onclick="clr()" style="background-color: #d9534f;" /> </td> 
+        </tr> 
+        <tr> 
+            <td><input type="button" value="1" onclick="dis('1')"
+                        onkeydown="priyaFunction(event)"> </td> 
+            <td><input type="button" value="2" onclick="dis('2')"
+                        onkeydown="priyaFunction(event)"> </td> 
+            <td><input type="button" value="3" onclick="dis('3')"
+                        onkeydown="priyaFunction(event)"> </td> 
+            <td><input type="button" value="/" onclick="dis('/')"
+                        onkeydown="priyaFunction(event)"> </td> 
+        </tr> 
+        <tr> 
+            <td><input type="button" value="4" onclick="dis('4')"
+                        onkeydown="priyaFunction(event)"> </td> 
+            <td><input type="button" value="5" onclick="dis('5')"
+                        onkeydown="priyaFunction(event)"> </td> 
+            <td><input type="button" value="6" onclick="dis('6')"
+                        onkeydown="priyaFunction(event)"> </td> 
+            <td><input type="button" value="*" onclick="dis('*')"
+                        onkeydown="priyaFunction(event)"> </td> 
+        </tr> 
+        <tr> 
+            <td><input type="button" value="7" onclick="dis('7')"
+                        onkeydown="priyaFunction(event)"> </td> 
+            <td><input type="button" value="8" onclick="dis('8')"
+                        onkeydown="priyaFunction(event)"> </td> 
+            <td><input type="button" value="9" onclick="dis('9')"
+                        onkeydown="priyaFunction(event)"> </td> 
+            <td><input type="button" value="-" onclick="dis('-')"
+                        onkeydown="priyaFunction(event)"> </td> 
+        </tr> 
+        <tr> 
+            <td><input type="button" value="0" onclick="dis('0')"
+                        onkeydown="priyaFunction(event)"> </td> 
+            <td><input type="button" value="." onclick="dis('.')"
+                        onkeydown="priyaFunction(event)"> </td> 
+            
+            <!-- solve function call function solve to evaluate value -->
+            <td><input type="button" value="=" onclick="solve()" style="background-color: #5cb85c;" /> </td> 
+
+            <td><input type="button" value="+" onclick="dis('+')"
+                        onkeydown="priyaFunction(event)"> </td> 
+        </tr> 
+    </table> 
+
+    <script> 
+        
+        // Function that display value 
+        function dis(val) { 
+            document.getElementById("result").value += val 
+        } 
+
+        function priyaFunction(event) { 
+            if (event.key == '0' || event.key == '1' 
+                || event.key == '2' || event.key == '3' 
+                || event.key == '4' || event.key == '5' 
+                || event.key == '6' || event.key == '7' 
+                || event.key == '8' || event.key == '9' 
+                || event.key == '+' || event.key == '-' 
+                || event.key == '*' || event.key == '/') 
+                document.getElementById("result").value += event.key; 
+        } 
+
+        var cal = document.getElementById("calcu"); 
+        cal.onkeyup = function (event) { 
+            if (event.keyCode === 13) { 
+                console.log("Enter"); 
+                let x = document.getElementById("result").value 
+                console.log(x); 
+                solve(); 
+            } 
+        } 
+
+        // Function that evaluates the digit and return result 
+        function solve() { 
+            let x = document.getElementById("result").value 
+            let y = math.evaluate(x) 
+            document.getElementById("result").value = y 
+        } 
+
+        // Function that clear the display 
+        function clr() { 
+            document.getElementById("result").value = "" 
+        } 
+    </script> 
+</body> 
+
+</html>
